@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on ExampleSite</title>
+    <link>https://haydn-jones.github.io/categories/</link>
+    <description>Recent content in Categories on ExampleSite</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://haydn-jones.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ay</title>
+      <link>https://haydn-jones.github.io/categories/ay/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://haydn-jones.github.io/categories/ay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Yuh</title>
+      <link>https://haydn-jones.github.io/categories/yuh/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://haydn-jones.github.io/categories/yuh/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
