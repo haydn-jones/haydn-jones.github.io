@@ -5,7 +5,7 @@
     <link>https://haydn-jones.github.io/</link>
     <description>Recent content on ExampleSite</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 Jan 2021 10:59:31 +0000</lastBuildDate>
     
 	<atom:link href="https://haydn-jones.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,11 +13,29 @@
     <item>
       <title>My 1st post</title>
       <link>https://haydn-jones.github.io/posts/test/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Sun, 31 Jan 2021 10:59:31 +0000</pubDate>
       
       <guid>https://haydn-jones.github.io/posts/test/</guid>
       <description>Header 1 Sub header 1 Block math:
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$</description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>https://haydn-jones.github.io/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://haydn-jones.github.io/archives/</guid>
+      <description>archives</description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>https://haydn-jones.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://haydn-jones.github.io/search/</guid>
+      <description></description>
     </item>
     
   </channel>
