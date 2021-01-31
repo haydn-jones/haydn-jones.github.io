@@ -3,12 +3,12 @@ title: ExampleSite
 paginate: 5
 theme: PaperMod
 
-enableRobotsTXT: true
+enableRobotsTXT: false
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: UA-123-45
+googleAnalytics: G-EZV4WVKC9K
 
 minify:
     disableXML: true
@@ -66,16 +66,16 @@ params:
         Content: Welcome to my blog
 
     socialIcons:
-        - name: twitter
-          url: "https://twitter.com/"
-        - name: stackoverflow
-          url: "https://stackoverflow.com"
         - name: github
-          url: "https://github.com/"
+          url: "https://github.com/haydn-jones"
+        - name: twitter
+          url: "https://twitter.com/BadBoyHayHay"
+        - name: linkedin
+          url: "https://www.linkedin.com/in/haydntjones/"
 
     analytics:
         google:
-            SiteVerificationTag: "XYZabc"
+            SiteVerificationTag: "RBncEpUvyPvfBoYECYjxLlRh59LQr3EQ3XdW91ghf2o"
 
     cover:
         hidden: true # hide everywhere but not in structured data
@@ -92,20 +92,24 @@ params:
         threshold: 0.4
         minMatchCharLength: 0
         keys: ["title", "permalink", "summary", "content"]
+        includeMatches: true
 menu:
     main:
-        - identifier: categories
-          name: categories
-          url: /categories/
-          weight: 10
-        - identifier: tags
-          name: tags
-          url: /tags/
-          weight: 20
-        - identifier: example
-          name: example.org
-          url: https://example.org
-          weight: 30
+        - name: Archive
+          url: archives
+          weight: 1
+        - name: Posts
+          url: posts
+          weight: 2
+        - name: Search
+          url: search/
+          weight: 3
+        - name: Categories
+          url: categories/
+          weight: 4
+        - name: Tags
+          url: tags/
+          weight: 5
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
@@ -115,3 +119,8 @@ markup:
         guessSyntax: true
         lineNos: true
         style: monokai
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
