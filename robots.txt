@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://haydn-jones.github.io/sitemap.xml
