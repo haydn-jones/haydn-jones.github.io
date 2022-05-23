@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posterior Collapse</title>
-    <link>https://haydn-jones.github.io/</link>
-    <description>Recent content on Posterior Collapse</description>
+    <title>Posts on Posterior Collapse</title>
+    <link>https://haydn-jones.github.io/posts/</link>
+    <description>Recent content in Posts on Posterior Collapse</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 22 May 2022 14:29:11 -0600</lastBuildDate><atom:link href="https://haydn-jones.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 May 2022 14:29:11 -0600</lastBuildDate><atom:link href="https://haydn-jones.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Launch of WaifuXL</title>
       <link>https://haydn-jones.github.io/posts/the-launch-of-waifuxl/</link>
@@ -15,8 +15,6 @@
       <description>We&amp;rsquo;re Launching! Today we&amp;rsquo;re finally launching our neural network powered super resolution website for anime-style drawings, WaifuXL! This is a project that The Future Gadgets Lab has been working on for a while and we&amp;rsquo;re really excited to share it with you.
 WaifuXL is quite similar to waifu2x in function, however, our super resolution model (the Real-ESRGAN) produces much better up-samples, we have a fun image property tagger, and our backend (or lack thereof) is radically different.</description>
     </item>
-    
-    
     
   </channel>
 </rss>
