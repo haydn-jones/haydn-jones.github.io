@@ -31,20 +31,20 @@ cover:
 # We're Launching!
 Today we're finally launching our neural network powered super resolution website for anime-style drawings, [WaifuXL](https://waifuxl.com/)! This is a project that [The Future Gadgets Lab](https://github.com/TheFutureGadgetsLab/WaifuXL) has been working on for a while and we're really excited to share it with you.
 
-WaifuXL is quite similar to [waifu2x](http://waifu2x.udp.jp/) in function, however, our super resolution model (the [Real-ESRGAN](https://arxiv.org/abs/2107.10833)) produces ***much*** better upsamples, we have a fun image property tagger, and our backend (or lackthereof) is radically different. When you use our service to upscale an image, rather than sending your input to a backend somewhere in the cloud to be upsampled remotely, we send the upsampling neural network (and the tagger) *to you* for execution directly on your laptop, desktop, phone, or tablet. We'll get to how this is possible in a moment, but first we're going to cover the models.
+WaifuXL is quite similar to [waifu2x](http://waifu2x.udp.jp/) in function, however, our super resolution model (the [Real-ESRGAN](https://arxiv.org/abs/2107.10833)) produces ***much*** better up-samples, we have a fun image property tagger, and our backend (or lack thereof) is radically different. When you use our service to upscale an image, rather than sending your input to a backend somewhere in the cloud to be up-sampled remotely, we send the up-sampling neural network (and the tagger) *to you* for execution directly on your laptop, desktop, phone, or tablet. We'll get to how this is possible in a moment, but first we're going to cover the models.
 
 ![ComparisonWithWaifu2x](/The-Launch-of-WaifuXL/comparison.png)
 
 ## The Networks
 ### Super Resolution
-What sets the Real-ESRGAN apart from other models (and the models used by waifu2x) is not the architecture but its *training process*. The standard training process for super resolution networks is to simply take a high resolution dataset of images, downscale them to a lower resolution, and train the network to map from the downscaled images to the original high-resolution ones. The Real-ESRGAN training process attempts to directly model the kind of degredations one might encounter in real-world low-quality images through a process they call a "high-order degradation model". During this process they combine many different degradations with various intensities to produce a visually corrupt input to the network. Here is an overview of the various degradations they apply, but refer to **Section 3** of the paper to get a better idea of the entire process:
+What sets the Real-ESRGAN apart from other models (and the models used by waifu2x) is not the architecture but it’s *training process*. The standard training process for super resolution networks is to simply take a high-resolution dataset of images, downscale them to a lower resolution, and train the network to map from the downscaled images to the original high-resolution ones. The Real-ESRGAN training process attempts to directly model the kind of degradations one might encounter in real-world low-quality images through a process they call a "high-order degradation model". During this process they combine many different degradations with various intensities to produce a visually corrupt input to the network. Here is an overview of the various degradations they apply, but refer to **Section 3** of the paper to get a better idea of the entire process:
  - Blur (multiple kinds)
  - Noise
- - Combinations of upsampling and downsampling with various algorithms
+ - Combinations of up-sampling and down-sampling with various algorithms
  - JPEG compression
  - Sinc filters (to model ringing and overshoot)
 
-The training process is further improved by including a GAN loss (wherein a separate network learns to differentiate between the true high res images and the super resolution network outputs, causing the two networks to compete) and a [Perceptual](https://arxiv.org/abs/1801.03924) loss.
+The training process is further improved by including a GAN loss (wherein a separate network learns to differentiate between the true high-res images and the super resolution network outputs, causing the two networks to compete) and a [Perceptual](https://arxiv.org/abs/1801.03924) loss.
 
 ### Image Tagging 
 For our image tagger we're using a [MobileNetV3](https://arxiv.org/abs/1905.02244). The network will detect 2,000 different characteristics in the image, 2,000 different characters (mostly from anime or related media), and an explicitness rating (safe, questionable, or explicit). Here is an example of our tagger outputs:
@@ -64,10 +64,10 @@ To train both of our models we are using the [Danbooru2021](https://www.gwern.ne
 ## The Website
 
 ### The Not-Backend
-Previously we mentioned that rather than running the models on a backend in the cloud, we're serving you the models for execution on your machine--how is this done? The [Onnx Runtime](https://onnxruntime.ai/) is an open source project aiming to accelerate maching learning training across a wide variety of frameworks, devices, and deployment targets--one of these targets being the web through a WebAssembly backend. After exporting the model to the `onnx` format we simply serve the model to you and their backend will take care of the rest. Best of all it supports SIMD acceleration and multithreading.
+Previously we mentioned that rather than running the models on a backend in the cloud, we're serving you the models for execution on your machine--how is this done? The [Onnx Runtime](https://onnxruntime.ai/) is an open source project aiming to accelerate machine learning training across a wide variety of frameworks, devices, and deployment targets--one of these targets being the web through a WebAssembly backend. After exporting the model to the `onnx` format we simply serve the model to you and their backend will take care of the rest. Best of all it supports SIMD acceleration and multithreading.
 
 ### The Upscaling Lifecycle
-Generally, the lifecycle of WaifuXL can be described as taking in an input image, loading in the model, running the model on the image, and then creating an output image from the model results. There are more granular steps in this process that provide various tools and functionality, such as image chunking and GIF de/restructring.  
+Generally, the lifecycle of WaifuXL can be described as taking in an input image, loading in the model, running the model on the image, and then creating an output image from the model results. There are more granular steps in this process that provide various tools and functionality, such as image chunking and GIF de/restructuring.  
 
 In order to efficiently pass data between different services and UI components, all of the images are represented throughout the lifecycle as Data URIs. If you're not familiar, data URIs are a long string that basically provides a text encoding of a file, so they allow for you to store the image purely as a string. They begin with a small section describing the file format (`data:image/gif` or `data:image/png`), and then a long string that encodes the actual file contents.  
 
@@ -93,7 +93,7 @@ function getPixelDataFromURI(inputURI) {
 }
 ```
 
-After we have all of the pixel information in the image, we then convert this to an `ndarray`, using the `ndarray` and `ndarray-ops` libraries.
+After we have all the pixel information in the image, we then convert this to an `ndarray`, using the `ndarray` and `ndarray-ops` libraries.
 ``` Javascript
 export function buildNdarrayFromImage(imageData) {
   const { data, width, height } = imageData;
@@ -147,7 +147,7 @@ export function buildImageFromND(nd, height, width) {
   return canvas.toDataURL();
 }
 ```
-Finally, now that we have the output Data URI, we can render this output alongside the input to the user, using the react-compare-slider library to create a side by side view of the images. 
+Finally, now that we have the output Data URI, we can render this output alongside the input to the user, using the react-compare-slider library to create a side-by-side view of the images. 
 
 ## Breakdown of Some "Fun" Problems
 
@@ -168,15 +168,16 @@ The most challenging parts of this process was handling coalescing, since GIFs o
 ### Safari Non-Compliance
 One of the more interesting problems arose from a classic Web Development hurdle: non-compliant browsers. And of course, as Internet Explorer has been sunset, a new champion of non-compliance rises -- Apple's Safari browser. While significantly better than previously non-compliant browsers, Safari still offers various "fun" things it's decided not to implement. In this project, our main issues came from (what we believe) is Safari's SharedArrayBuffer implementation -- namely that it doesn't seem to work. The ONNX web runtime uses SharedArrayBuffers when running multi-threaded, so in Safari, trying to initialize the model to use more than one thread fails. At this time, we're getting around this by checking the User Agent of the browser, and if its a Webkit based browser / engine we fall back to serial execution. We've submitted an issue with ONNX to resolve this, and hopefully we will be able to give Webkit based browser users better speeds in the future.
 
-As a side-note, in order to enable SharedArrayBuffers in general you have to set two response headers--Cross Origin Embedder Policy and Cross Origin Opener Policy. When you don't set these headers properly, there will be no issue thrown on any browser, as it is impossible for SharedArrayBuffers to be used at all. This led to plenty of confusion in local testing and early trials, as it became difficult to efficiently test changes and debug the issue locally. 
+As a sidenote, to enable SharedArrayBuffers in general you must set two response headers--Cross Origin Embedder Policy and Cross Origin Opener Policy. When you don't set these headers properly, there will be no issue thrown on any browser, as it is impossible for SharedArrayBuffers to be used at all. This led to plenty of confusion in local testing and early trials, as it became difficult to efficiently test changes and debug the issue locally. 
 
 ### Disagreement between PyTorch and ONNX
-One operation used by the Real-ESRGAN is the Pixel UnShuffle, an operation where spatial width and height of an image (or Tensor) are traded for *depth* by squeezing some of the spatial information into the channel dimension. Both PyTorch and ONNX support this operation, however, they were performing this squeezing in different orders. This was resulting in an upscaled image that looks like the colors were inverted--not great. An issue was opened in PyTorch and in the mean time we implemented the operator from scratch. About a week ago the issue was finally resolved and we were able to use the built in version.
+One operation used by the Real-ESRGAN is the Pixel UnShuffle, an operation where spatial width and height of an image (or Tensor) are traded for *depth* by squeezing some of the spatial information into the channel dimension. Both PyTorch and ONNX support this operation, however, they were performing this squeezing in different orders. This was resulting in an upscaled image that looks like the colors were inverted--not great. An issue was opened in PyTorch and in the meantime we implemented the operator from scratch. About a week ago the issue was finally resolved, and we were able to use the built in version.
 
 
 # Wrap-up and Future Work for the Future Gadgets Lab
-It was a bit all over the place and rushed, but we hope you enjoyed our write up on WaifuXL. This was our first big project as a group so we were excited to share some details on our effort.
+It was a bit all over the place and rushed, but we hope you enjoyed our write up on WaifuXL. This was our first big project as a group, so we were excited to share some details on our effort.
 
-We hope you like [WaifuXL](https://waifuxl.com/), we're really happy with the quality of the model (of course, props to the researchers behind the Real-ESRGAN) and our method of delivery. Our model only performs well on anime-style drawings but we'd like to train a model on real images so we can provide high quality upsampling for all types of images. We're also interested in adding some more models to the website, such as a style transfer model, but we're likely going to leave that to a later date.
+We hope you like [WaifuXL](https://waifuxl.com/), we're really happy with the quality of the model (of course, props to the researchers behind the Real-ESRGAN) and our method of delivery. Our model only performs well on anime-style drawings but we'd like to train a model on real images so we can provide high quality up-sampling for all types of images. We're also interested in adding some more models to the website, such as a style transfer model, but we're likely going to leave that to a later date.
 
-Stay tuned for some more fun projects from us, we're always throwing around ideas and maybe we'll land on another one like this soon. Until then, keep expanding your waifus.
+Stay tuned for some more fun projects from us, we're always throwing around ideas and maybe we'll land on another one like this soon. Until then, keep expanding your Waifus.
+
