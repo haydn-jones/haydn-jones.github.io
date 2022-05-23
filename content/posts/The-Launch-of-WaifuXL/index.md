@@ -22,7 +22,7 @@ ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "/The-Launch-of-WaifuXL/WaifuXL.png" # image path/url
+    image: "images/WaifuXL.webp" # image path/url
     alt: "WaifuXL Screenshot" # alt text
     caption: "" # display caption under cover
     relative: true # when using page bundles set this to true
@@ -33,7 +33,7 @@ Today we're finally launching our neural network powered super resolution websit
 
 WaifuXL is quite similar to [waifu2x](http://waifu2x.udp.jp/) in function, however, our super resolution model (the [Real-ESRGAN](https://arxiv.org/abs/2107.10833)) produces ***much*** better up-samples, we have a fun image property tagger, and our backend (or lack thereof) is radically different. When you use our service to upscale an image, rather than sending your input to a backend somewhere in the cloud to be up-sampled remotely, we send the up-sampling neural network (and the tagger) *to you* for execution directly on your laptop, desktop, phone, or tablet. We'll get to how this is possible in a moment, but first we're going to cover the models.
 
-![ComparisonWithWaifu2x](/The-Launch-of-WaifuXL/comparison.png)
+![ComparisonWithWaifu2x](images/comparison.webp)
 
 ## The Networks
 ### Super Resolution
@@ -156,7 +156,7 @@ After some initial testing with upscaling large images, we realized that with a 
 
 That would've been the end of the story if it weren't for the windowing artifacts. When image chunks are upscaled, there are visible artifacts along their boundaries in the combined image, shown below:
 
-![PaddingIssue](/The-Launch-of-WaifuXL/padding.png)
+![PaddingIssue](images/padding.webp)
 
 To get around this we allow chunks to *overlap* onto other chunks when they are upscaled, and then remove/merge the overlapping regions. We found that an overlap of only 4 pixels to each side was sufficient to remove the windowing effect.
 
