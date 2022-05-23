@@ -1,5 +1,5 @@
 baseURL: "https://haydn-jones.github.io/"
-title: Mode Collapse
+title: Posterior Collapse
 paginate: 5
 theme: PaperMod
 
@@ -62,29 +62,25 @@ params:
     ShowRssButtonInSectionTermList: true
     ShowToc: true
     # comments: false
-    images: ["papermod-cover.png"]
+    #images: ["papermod-cover.png"]
 
     homeInfoParams:
-        Title: "PaperMod"
+        Title: "Posterior Collapse"
         Content: >
-            Welcome to demo of hugo's theme PaperMod.
-
-            - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
-
-            - Do give a 🌟 on Github !
-
-            - PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper).
+            Welcome to my blog, Posterior Collapse. Maybe I'll blog about machine learning here, maybe I wont.
 
     socialIcons:
         - name: github
-          url: "https://github.com/adityatelange/hugo-PaperMod"
+          url: "https://github.com/haydn-jones"
+        - name: LinkedIn
+          url: "https://www.linkedin.com/in/haydntjones/"
         - name: KoFi
-          url: "https://ko-fi.com/adityatelange"
-        - name: RsS
-          url: "index.xml"
+          url: "https://ko-fi.com/thefuturegadgetslab"
+        - name: Twitter
+          url: "https://twitter.com/BadBoyHayHay"
 
     editPost:
-        URL: "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
+        URL: "https://github.com/haydn-jones/haydn-jones.github.io/tree/dev/content/"
         Text: "Suggest Changes" # edit text
         appendFilePath: true # to append file path to Edit link
 

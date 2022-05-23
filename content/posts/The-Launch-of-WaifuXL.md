@@ -2,7 +2,8 @@
 title: "The Launch of WaifuXL"
 date: 2022-05-22T14:29:11-06:00
 draft: true
-tags: []
+tags: ["ML"]
+categories: ["The Future Gadgets Lab"]
 author: ["Haydn Jones", "Alec Benson", "Benjamin Mastripolito", "The Future Gadgets Lab"]
 showToc: true
 TocOpen: true
@@ -21,16 +22,18 @@ ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "/WaifuXL.png" # image path/url
+    image: "/The-Launch-of-WaifuXL/WaifuXL.png" # image path/url
     alt: "WaifuXL Screenshot" # alt text
     caption: "" # display caption under cover
     relative: true # when using page bundles set this to true
     hidden: false # only hide on current single page
 ---
 # We're Launching!
-Today we're finally launching our neural network powered super resolution website, [WaifuXL](https://waifuxl.com/)! This is a project that [The Future Gadgets Lab](https://github.com/TheFutureGadgetsLab/WaifuXL) has been working on for a while and we're really excited to share it with you.
+Today we're finally launching our neural network powered super resolution website for anime-style drawings, [WaifuXL](https://waifuxl.com/)! This is a project that [The Future Gadgets Lab](https://github.com/TheFutureGadgetsLab/WaifuXL) has been working on for a while and we're really excited to share it with you.
 
 WaifuXL is quite similar to [waifu2x](http://waifu2x.udp.jp/) in function, however, our super resolution model (the [Real-ESRGAN](https://arxiv.org/abs/2107.10833)) produces ***much*** better upsamples, we have a fun image property tagger, and our backend (or lackthereof) is radically different. When you use our service to upscale an image, rather than sending your input to a backend somewhere in the cloud to be upsampled remotely, we send the upsampling neural network (and the tagger) *to you* for execution directly on your laptop, desktop, phone, or tablet. We'll get to how this is possible in a moment, but first we're going to cover the models.
+
+![ComparisonWithWaifu2x](/The-Launch-of-WaifuXL/comparison.png)
 
 ## The Networks
 ### Super Resolution
@@ -149,22 +152,31 @@ Finally, now that we have the output Data URI, we can render this output alongsi
 ## Breakdown of Some "Fun" Problems
 
 ### Image Splitting
-After some initial testing with upscaling large images, we realized that with a sufficient large image, the upscaling model would fail. This has to do with the fact that WebAssembly is currently only 32-bit, meaning our address space, and therefore also our memory usage, is fundamentally limited. To get around this problem, we decided to split large images into chunks and process the individual chunks individually instead of processing the entire image.
+After some initial testing with upscaling large images, we realized that with a sufficiently large image, the upscaling model would fail. The cause of this turned out to be the 32-bit address space of WebAssembly, meaning our address space, and therefore our memory usage, is fundamentally limited. To get around this problem, we split large images into chunks and process the individual chunks instead of processing the entire image at once.
 
-That would've been the end of the story if it weren't for the edge artifacts. When image chunks are upscaled, there are visible artifacts along their boundaries. The image below shows how these artifacts are mitigated by padding image chunks:
+That would've been the end of the story if it weren't for the windowing artifacts. When image chunks are upscaled, there are visible artifacts along their boundaries in the combined image, shown below:
 
-![example of how image padding improves results. left is no padding, right is 4px padding](/padding.png)
+![PaddingIssue](/The-Launch-of-WaifuXL/padding.png)
 
+To get around this we allow chunks to *overlap* onto other chunks when they are upscaled, and then remove/merge the overlapping regions. We found that an overlap of only 4 pixels to each side was sufficient to remove the windowing effect.
 
 ### GIFs
 GIFs work almost the exact same way that images do, except for on input they are split into each frame, each of these frames is upscaled individually, and then the frames are reassembled into a new GIF. This is basically just running the image upscaling process on each frame, and then combining these frames into a new GIF. This is accomplished with the help of [gif-js](https://github.com/jnordberg/gif.js), [gifuct-js](https://github.com/matt-way/gifuct-js), and [gif-extract-frames](https://github.com/transitive-bullshit/gif-extract-frames).  
 
-The most challenging parts of this process was handling coalescing, since GIFs often only store information about pixels changed between frames rather than each frame of the GIF. `gif-extract-frames` handles coalescing efficiently, and is used when possible. Generally, `gif-extract-frames` is used to break the image down into individual frames, `gif.js` is used to create new GIFs, and `gifuct-js` primarily handles extracting the delay from GIFs.
+The most challenging parts of this process was handling coalescing, since GIFs often only store information about pixels changed between frames rather than each frame of the GIF. Generally, `gif-extract-frames` is used to break the image down into individual frames, `gif.js` is used to create new GIFs, and `gifuct-js` primarily handles extracting the delay from GIFs.
 
 ### Safari Non-Compliance
-One of the more interesting problems arose from a classic Web Development hurdle: non-compliant browsers. And of course, as Internet Explorer has been sunset, a new champion of non-compliance rises -- Apple's Safari browser. While significantly better than previously non-compliant browsers, Safari still offers various "fun" things it's decided not to implement. In this project, our main issues came from (what we believe) is Safari's SharedArrayBuffer implementation -- namely that it doesn't seem to work. The ONNX web runtime uses SharedArrayBuffers when running multi-threaded, so in Safari, trying to initialize the model to use more than one thread fails. At this time, we've gotten around this by checking the User Agent of the site requester, and then setting the number of threads to 1 if they're using a Webkit based browser. We've submitted an issue with ONNX to resolve this, and hopefully we will be able to give Webkit based browser users better speeds in the future.
+One of the more interesting problems arose from a classic Web Development hurdle: non-compliant browsers. And of course, as Internet Explorer has been sunset, a new champion of non-compliance rises -- Apple's Safari browser. While significantly better than previously non-compliant browsers, Safari still offers various "fun" things it's decided not to implement. In this project, our main issues came from (what we believe) is Safari's SharedArrayBuffer implementation -- namely that it doesn't seem to work. The ONNX web runtime uses SharedArrayBuffers when running multi-threaded, so in Safari, trying to initialize the model to use more than one thread fails. At this time, we're getting around this by checking the User Agent of the browser, and if its a Webkit based browser / engine we fall back to serial execution. We've submitted an issue with ONNX to resolve this, and hopefully we will be able to give Webkit based browser users better speeds in the future.
 
-As a side-note, in order to enable SharedArrayBuffers in general you have to set two response headers- Cross Origin Embedder Policy and Cross Origin Opener Policy. When you don't set these headers properly, there will be no issue thrown on any browser, as it is impossible for SharedArrayBuffers to be used at all. This led to plenty of confusion in local testing and early trials, as it became difficult to efficiently test changes and debug the issue locally. 
+As a side-note, in order to enable SharedArrayBuffers in general you have to set two response headers--Cross Origin Embedder Policy and Cross Origin Opener Policy. When you don't set these headers properly, there will be no issue thrown on any browser, as it is impossible for SharedArrayBuffers to be used at all. This led to plenty of confusion in local testing and early trials, as it became difficult to efficiently test changes and debug the issue locally. 
 
 ### Disagreement between PyTorch and ONNX
 One operation used by the Real-ESRGAN is the Pixel UnShuffle, an operation where spatial width and height of an image (or Tensor) are traded for *depth* by squeezing some of the spatial information into the channel dimension. Both PyTorch and ONNX support this operation, however, they were performing this squeezing in different orders. This was resulting in an upscaled image that looks like the colors were inverted--not great. An issue was opened in PyTorch and in the mean time we implemented the operator from scratch. About a week ago the issue was finally resolved and we were able to use the built in version.
+
+
+# Wrap-up and Future Work for the Future Gadgets Lab
+It was a bit all over the place and rushed, but we hope you enjoyed our write up on WaifuXL. This was our first big project as a group so we were excited to share some details on our effort.
+
+We hope you like [WaifuXL](https://waifuxl.com/), we're really happy with the quality of the model (of course, props to the researchers behind the Real-ESRGAN) and our method of delivery. Our model only performs well on anime-style drawings but we'd like to train a model on real images so we can provide high quality upsampling for all types of images. We're also interested in adding some more models to the website, such as a style transfer model, but we're likely going to leave that to a later date.
+
+Stay tuned for some more fun projects from us, we're always throwing around ideas and maybe we'll land on another one like this soon. Until then, keep expanding your waifus.
