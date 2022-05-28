@@ -1,13 +1,18 @@
 ---
 title: "The Launch of WaifuXL"
 date: 2022-05-22T14:29:11-06:00
-draft: true
+draft: false
 tags: ["ML"]
 categories: ["The Future Gadgets Lab"]
-author: ["Haydn Jones", "Alec Benson", "Benjamin Mastripolito", "The Future Gadgets Lab"]
+author:
+    [
+        "Haydn Jones",
+        "Alec Benson",
+        "Benjamin Mastripolito",
+        "The Future Gadgets Lab",
+    ]
 showToc: true
 TocOpen: true
-draft: false
 hidemeta: false
 comments: false
 description: ""
@@ -15,9 +20,6 @@ disableShare: false
 disableHLJS: false
 hideSummary: false
 searchHidden: false
-ShowReadingTime: false
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
 ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
