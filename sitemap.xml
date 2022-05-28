@@ -2,31 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://haydn-jones.github.io/categories/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/categories/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/tags/ml/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/tags/ml/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/posts/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/posts/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/tags/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/tags/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/categories/the-future-gadgets-lab/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/categories/the-future-gadgets-lab/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/posts/the-launch-of-waifuxl/</loc>
-    <lastmod>2022-05-22T14:29:11-06:00</lastmod>
+    <loc>https://haydn.fgl.dev/posts/the-launch-of-waifuxl/</loc>
+    <lastmod>2022-05-28T11:56:04-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/archives/</loc>
+    <loc>https://haydn.fgl.dev/archives/</loc>
+    <lastmod>2022-05-21T20:59:56-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/search/</loc>
+    <loc>https://haydn.fgl.dev/search/</loc>
+    <lastmod>2022-05-21T20:59:56-06:00</lastmod>
   </url><url>
-    <loc>https://haydn-jones.github.io/series/</loc>
+    <loc>https://haydn.fgl.dev/series/</loc>
   </url>
 </urlset>

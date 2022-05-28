@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>The Future Gadgets Lab on Posterior Collapse</title>
-    <link>https://haydn-jones.github.io/categories/the-future-gadgets-lab/</link>
+    <link>https://haydn.fgl.dev/categories/the-future-gadgets-lab/</link>
     <description>Recent content in The Future Gadgets Lab on Posterior Collapse</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 22 May 2022 14:29:11 -0600</lastBuildDate><atom:link href="https://haydn-jones.github.io/categories/the-future-gadgets-lab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 May 2022 14:29:11 -0600</lastBuildDate><atom:link href="https://haydn.fgl.dev/categories/the-future-gadgets-lab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Launch of WaifuXL</title>
-      <link>https://haydn-jones.github.io/posts/the-launch-of-waifuxl/</link>
+      <link>https://haydn.fgl.dev/posts/the-launch-of-waifuxl/</link>
       <pubDate>Sun, 22 May 2022 14:29:11 -0600</pubDate>
       
-      <guid>https://haydn-jones.github.io/posts/the-launch-of-waifuxl/</guid>
+      <guid>https://haydn.fgl.dev/posts/the-launch-of-waifuxl/</guid>
       <description>We&amp;rsquo;re Launching at waifuxl.com! Today we&amp;rsquo;re finally launching our neural network powered super resolution website for anime-style drawings, WaifuXL! This is a project that The Future Gadgets Lab has been working on for a while and we&amp;rsquo;re really excited to share it with you.
 WaifuXL is quite similar to waifu2x in function, however, our super resolution model (the Real-ESRGAN) produces much better up-samples, we have a fun image property tagger, and our backend (or lack thereof) is radically different.</description>
     </item>
