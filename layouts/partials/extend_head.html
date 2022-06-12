@@ -1,14 +1,15 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/gruvbox-dark.min.css"
-    integrity="sha512-qRo8LjYAm+c8yc6YH84TROIPnkx6j0bD1m1GbA/97FemUlk5y0bYyDbXBWLlWMEBT/AaTUofS4KS3stTdW2RFg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"
-    integrity="sha384-ZPe7yZ91iWxYumsBEOn7ieg8q/o+qh/hQpSaPow8T6BwALcXSCS6C6fSRPIAnTQs" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"
-    integrity="sha384-ljao5I1l+8KYFXG7LNEA7DyaFvuvSCmedUf6Y6JI7LJqiu8q5dEivP2nDdFH31V4"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
+<!-- Highlight.js gruvbox dark -->
+{{ if not .Params.disableHLJS }}
+{{ partial "gruvbox.html" . }}
+{{ end }}
+<!-- End of Highlight.js gruvbox dark -->
+
+<!-- Partial for math -->
+{{ if .Params.math }}
+{{ partial "math.html" . }}
+{{ end }}
+<!-- end of Partial for math -->
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsID}}"></script>
 <script>
