@@ -17,13 +17,11 @@ hidemeta: false
 comments: false
 description: ""
 disableShare: false
-disableHLJS: false
 hideSummary: false
 searchHidden: false
 ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
-math: true
 cover:
     image: "images/WaifuXL.webp" # image path/url
     alt: "WaifuXL Screenshot" # alt text
@@ -36,7 +34,8 @@ Today we're finally launching our neural network powered super resolution websit
 
 WaifuXL is quite similar to [waifu2x](http://waifu2x.udp.jp/) in function, however, our super resolution model (the [Real-ESRGAN](https://arxiv.org/abs/2107.10833)) produces ***much*** better up-samples, we have a fun image property tagger, and our backend (or lack thereof) is radically different. When you use our service to upscale an image, rather than sending your input to a backend somewhere in the cloud to be up-sampled remotely, we send the up-sampling neural network (and the tagger) *to you* for execution directly on your laptop, desktop, phone, or tablet. We'll get to how this is possible in a moment, but first we're going to cover the models.
 
-![ComparisonWithWaifu2x](images/comparison.webp#center)
+{{< figure src="images/comparison.webp#center" alt="Comparison with waifu2x showing superior performance of WaifuXL." >}}
+
 
 ## The Networks
 ### Super Resolution
@@ -77,7 +76,7 @@ In order to efficiently pass data between different services and UI components, 
 When the actual pixel information is displayed to a user on the site, these data URIs are simply passed into JSX image tags and displayed. When the various services need to actually gather information from the images (such as for chunking, or to build an ndarray to pass to the model) the data URIs are painted on an HTML canvas (this canvas is never shown to the user) and the `getImageData` function is called on the canvas context.  
 The actual function we use to do this looks as follows:
 
-```Javascript
+{{< highlight javascript >}}
 function getPixelDataFromURI(inputURI) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -94,10 +93,11 @@ function getPixelDataFromURI(inputURI) {
     };
   });
 }
-```
+{{< / highlight >}}
 
 After we have all the pixel information in the image, we then convert this to an `ndarray`, using the `ndarray` and `ndarray-ops` libraries.
-``` Javascript
+
+{{< highlight javascript >}}
 export function buildNdarrayFromImage(imageData) {
   const { data, width, height } = imageData;
   const dataTensor = ndarray(new Uint8Array(data), [height, width, 4]);
@@ -121,9 +121,11 @@ export function buildNdarrayFromImage(imageData) {
   );
   return dataProcessedTensor;
 }
-```
+{{< / highlight >}}
+
 Finally, this `ndarray` is converted to a `Tensor` for the model input, as follows:
-```Javascript
+
+{{< highlight javascript >}}
 function prepareImage(imageArray) {
   const height = imageArray.shape[2];
   const width = imageArray.shape[3];
@@ -135,10 +137,11 @@ function prepareImage(imageArray) {
   ]);
   return { input: tensor };
 }
-```
+{{< / highlight >}}
 
 The model then runs, using this new Tensor as input, and produces a new Tensor. This Tensor is converted to an ndarray, and we paint this ndarray to a canvas once again, and return the Data URI from this canvas.
-```Javascript
+
+{{< highlight javascript >}}
 export function buildImageFromND(nd, height, width) {
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -149,7 +152,8 @@ export function buildImageFromND(nd, height, width) {
   context.putImageData(data, 0, 0);
   return canvas.toDataURL();
 }
-```
+{{< / highlight >}}
+
 Finally, now that we have the output Data URI, we can render this output alongside the input to the user, using the react-compare-slider library to create a side-by-side view of the images. 
 
 ## Breakdown of Some "Fun" Problems
@@ -159,7 +163,7 @@ After some initial testing with upscaling large images, we realized that with a 
 
 That would've been the end of the story if it weren't for the windowing artifacts. When image chunks are upscaled, there are visible artifacts along their boundaries in the combined image, shown below:
 
-![PaddingIssue](images/padding.webp#center)
+{{< figure src="images/padding.webp#center" alt="Figure showing windowing effect and the result of padding." >}}
 
 To get around this we allow chunks to *overlap* onto other chunks when they are upscaled, and then remove/merge the overlapping regions. We found that an overlap of only 4 pixels to each side was sufficient to remove the windowing effect.
 

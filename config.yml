@@ -13,7 +13,7 @@ enableGitInfo: true
 googleAnalytics: G-V58YRV80SX
 
 minify:
-  disableXML: true
+  disableXML: false
   minifyOutput: true
 
 languages:
@@ -64,6 +64,7 @@ params:
   ShowCodeCopyButtons: true
   ShowRssButtonInSectionTermList: true
   ShowToc: true
+  disableHLJS: true
   # comments: false
   # images: ["papermod-cover.png"]
 
@@ -128,8 +129,8 @@ markup:
     codeFences: true
     guessSyntax: true
     lineNos: true
-    noClasses: false
-    style: "gruvbox-dark"
+    noClasses: true
+    style: "solarized-dark256"
     pygmentsUseClasses: true
 
 privacy:
