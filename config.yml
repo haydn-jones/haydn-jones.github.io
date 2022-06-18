@@ -66,12 +66,11 @@ params:
   TocOpen: true
   ShowWordCount: false
   ShowReadingTime: false
-  # comments: false
 
   homeInfoParams:
     Title: "Posterior Collapse"
     Content: >
-      Welcome to my blog, Posterior Collapse. Maybe I'll blog about machine learning here, maybe I wont.
+      Welcome to my blog, Posterior Collapse. Maybe I'll write about machine learning here, maybe I wont.
 
   socialIcons:
     - name: github
