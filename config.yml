@@ -53,10 +53,9 @@ params:
   description: "Haydn's Blog"
   author: Haydn Jones
 
-  defaultTheme: auto
+  defaultTheme: dark
   disableThemeToggle: false
   ShowShareButtons: true
-  ShowReadingTime: true
   disableSpecial1stPost: true
   displayFullLangName: true
   ShowPostNavLinks: true
@@ -64,9 +63,10 @@ params:
   ShowCodeCopyButtons: true
   ShowRssButtonInSectionTermList: true
   ShowToc: true
-  disableHLJS: true
+  TocOpen: true
+  ShowWordCount: false
+  ShowReadingTime: false
   # comments: false
-  # images: ["papermod-cover.png"]
 
   homeInfoParams:
     Title: "Posterior Collapse"
@@ -90,48 +90,30 @@ params:
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
-  # label:
-  #     text: "Home"
-  #     icon: icon.png
-  #     iconHeight: 35
+  label:
+    text: "Posterior Collapse"
+    icon: "favicon.svg"
+    iconHeight: 35
 
-  #analytics:
-  #  google:
-  #    SiteVerificationTag: "G-V58YRV80SX"
-
-  # assets:
-  #     favicon: "<link / abs url>"
-  #     favicon16x16: "<link / abs url>"
-  #     favicon32x32: "<link / abs url>"
-  #     apple_touch_icon: "<link / abs url>"
-  #     safari_pinned_tab: "<link / abs url>"
+  assets:
+    disableHLJS: true
+    favicon: "favicon.svg"
+    favicon16x16: "favicon.svg"
+    favicon32x32: "favicon.svg"
+    apple_touch_icon: "favicon.svg"
+    safari_pinned_tab: "favicon.svg"
 
   # cover:
   #     hidden: true # hide everywhere but not in structured data
   #     hiddenInList: true # hide on list pages and home
   #     hiddenInSingle: true # hide on single page
 
-  # fuseOpts:
-  #     isCaseSensitive: false
-  #     shouldSort: true
-  #     location: 0
-  #     distance: 1000
-  #     threshold: 0.4
-  #     minMatchCharLength: 0
-  #     keys: ["title", "permalink", "summary", "content"]
-
 markup:
-  goldmark:
-    renderer:
-      unsafe: true
   highlight:
     anchorLineNos: false
     codeFences: true
-    guessSyntax: true
     lineNos: true
-    noClasses: true
-    style: "solarized-dark256"
-    pygmentsUseClasses: true
+    style: solarized-dark256
 
 privacy:
   vimeo:

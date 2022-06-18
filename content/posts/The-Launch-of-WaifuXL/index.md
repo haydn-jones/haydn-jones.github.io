@@ -11,23 +11,16 @@ author:
         "Benjamin Mastripolito",
         "The Future Gadgets Lab",
     ]
-showToc: true
-TocOpen: true
-hidemeta: false
 comments: false
 description: ""
 disableShare: false
 hideSummary: false
 searchHidden: false
-ShowWordCount: false
-ShowRssButtonInSectionTermList: true
-UseHugoToc: true
 cover:
     image: "images/WaifuXL.webp" # image path/url
     alt: "WaifuXL Screenshot" # alt text
     caption: "" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: false # only hide on current single page
 ---
 # We're Launching at [waifuxl.com](https://waifuxl.com/)!
 Today we're finally launching our neural network powered super resolution website for anime-style drawings, [WaifuXL](https://waifuxl.com/)! This is a project that [The Future Gadgets Lab](https://github.com/TheFutureGadgetsLab/WaifuXL) has been working on for a while and we're really excited to share it with you.
