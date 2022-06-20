@@ -91,16 +91,16 @@ params:
 
   label:
     text: "Posterior Collapse"
-    icon: "favicon.svg"
-    iconHeight: 35
+    icon: "logo.svg"
+    iconHeight: 40
 
   assets:
     disableHLJS: true
-    favicon: "favicon.svg"
-    favicon16x16: "favicon.svg"
-    favicon32x32: "favicon.svg"
-    apple_touch_icon: "favicon.svg"
-    safari_pinned_tab: "favicon.svg"
+    favicon: "favicon.ico"
+    favicon16x16: "favicon-16x16.png"
+    favicon32x32: "favicon-32x32.png"
+    apple_touch_icon: "apple-touch-icon.png"
+    safari_pinned_tab: "favicon-32x32.png"
 
   # cover:
   #     hidden: true # hide everywhere but not in structured data
