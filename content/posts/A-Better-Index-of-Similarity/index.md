@@ -5,7 +5,7 @@ draft: false
 tags: ["ML"]
 categories: ["Research"]
 author: "Haydn Jones"
-summary: "An overview and code for my recent research paper on neural network similarity."
+summary: "If you train one cat you get a toucan for free."
 TocOpen: true
 math: true
 ShowWordCount: true
