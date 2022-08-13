@@ -6,29 +6,21 @@ tags: ["ML"]
 categories: ["Research"]
 author: "Haydn Jones"
 summary: "If you train one cat you get a toucan for free."
-TocOpen: true
-math: true
 ShowWordCount: true
-cover:
-    image: "images/inv_diagram.webp"
-    alt: "Image inverion process" # alt text
-    caption: "" # display caption under cover
-    relative: true # when using page bundles set this to true
-    hidden: false # only hide on current single page
 ---
 
 If you're looking for code to get started with our method, head to [Getting Started With Some Code]({{< relref "#getting-started-with-some-code" >}}).
 
 
-# A Confound in the Data
+## A Confound in the Data
 
 [We recently published new results](https://openreview.net/pdf?id=BGfLS_8j5eq) indicating that there is a significant confound that must be controlled for when calculating similarity between neural networks: **correlated, yet distinct features *within* individual data points**. Examples of features like this are pretty straightforward and exist even at a conceptually high level: eyes and ears, wings and cockpits, tables and chairs. Really, any set of features that co-occur in inputs frequently and are correlated with the target class. To see why features like this are a problem let’s first look at the definition of the most widely used similarity metric, [**Linear Centered Kernel Alignment (Kornblith et al., 2019)**](https://arxiv.org/abs/1905.00414), or Linear CKA.
 
 
-## Linear Centered Kernel Alignment (CKA)
+### Linear Centered Kernel Alignment (CKA)
 CKA computes a metric of similarity between two neural networks by comparing the neuron activations of each network on provided data points, usually taken from an iid test distribution. The process is simple: pass each data point through both networks and extract the activations at the layers you want to compare and stack these activations up into two matrices (one for each network). We consider the *representation* of an input point to be the *activations* recorded in a neural network at a specific layer of interest when the data point is fed through the network. We compute similarity by mean-centering the matrices along the columns, and computing the following function:
 
-$$
+{{< katex >}}
 \begin{equation}
     \text{CKA}(A, B) = \frac{
         \lVert cov(A^T, B^T) \rVert_F^2
@@ -37,7 +29,6 @@ $$
         \lVert cov(B^T, B^T) \rVert_F
     }
 \end{equation}
-$$
 
 This will provide you with a score in the range \\([0, 1]\\), with higher values indicating more similar networks. What we see in the equation above, effectively, is that CKA is computing a normalized measure of the covariance between neurons across networks. Likewise, all other existing metrics for network similarity use some form of (potentially nonlinear) feature correlation.
 
@@ -60,21 +51,20 @@ def CKA(A: Tensor, B: Tensor):
     return dot_product_similarity / (normalization_x * normalization_y)
 {{< / highlight >}}
 
-## Idealized Neurons
+### Idealized Neurons
 With the idea of feature correlation in mind let's picture two networks, each having an idealized neuron. The first network has a {{<color "#F6B819" cat-ear >}} detector neuron--it fires when there are cat ears present in the image and does not otherwise. The other network has a neuron that is quite similar, but this one is a {{<color "#346DB5" cat-tail >}} detector‚ which only fires when cat tails are found. These features are distinct both visually and conceptually, but their neurons will show high correlation: images containing cat tails are very likely to contain cat ears, and conversely when cat ears are not present there are likely to be no cat tails. **CKA will find these networks to be quite similar, despite their reliance on entirely different features.**
 
-## Overcoming the Confound
+### Overcoming the Confound
 We need a way to isolate the features in an image used by a network while randomizing or discarding all others (i.e., preserve the {{<color "#346DB5" cat-tail >}} in an image of a cat, while randomizing / discarding every other feature, including the {{<color "#F6B819" cat-ears >}}).
 
 A technique known as **Representation Inversion** can do exactly this. Representation inversion was introduced by [**Ilyas et al. (2019)**](https://arxiv.org/abs/1905.02175) as a way to understand the features learned by robust and non-robust networks. This method constructs model-specific datasets in which all features not used by a classifier are randomized, thus removing co-occurring features that are not utilized by the model being used to produce the inversions.
 
 Given a classification dataset, we randomly choose pairs of inputs that have *different* labels. The first of each pair will be the `seed` image `s` and the second the `target` image `t`. Using the seed image as a starting point, we perform gradient descent to find an image that induces the same activations at the representation layer, \\(\text{Rep}(\cdot)\\), as the target image[^1]. The fact that we are performing a local search is critical here, because there are many possible inverse images that match the activations. We construct this image through gradient descent in input space by optimizing the following objective:
 
-$$
+{{< katex >}}
 \begin{equation}
     \text{inv} = \min_s \lVert \text{Rep}(s) - \text{Rep}(t) \rVert_2
 \end{equation}
-$$
 
 By sampling pairs of `seed` and `target` images that have distinct labels we eliminate features correlated with the target class that are not used by the model for classification of the target class. This is illustrated below for our two idealized {{<color "#346DB5" cat-tail >}} and {{<color "#F6B819" cat-ear >}} classifiers:
 
@@ -90,14 +80,14 @@ By repeating this process on many pairs of images sampled from a dataset we can 
 
 [^2]: It turns out that our metric of network similarity was simultaneously proposed and published by Nanda et al. in ["Measuring Representational Robustness of Neural Networks Through Shared Invariances”]( https://arxiv.org/abs/2206.11939), where they call this metric “STIR”.
 
-# Results
+## Results
 {{< figure src="images/results.webp#center" alt="Image inverion process" >}}
 
 Above we present two heatmaps showing CKA similarity calculated across pairs of 9 architectures trained on ImageNet. The left heatmap shows similarity on a set of images taken from the ImageNet validation set, as is normally done. Across the board we see that similarity is quite high between any pair of architectures, averaging at \\(0.67\\). On the right we calculate similarity between the same set of architectures, however each row and column pair is evaluated using the **row model’s** inverted dataset. Here we see that similarity is actually quite low when we isolate the features used by models!
 
 Alongside these results we investigated how robust training affects the similarity of architectures under our proposed metric and multiple others. **Surprisingly, we found that as the robustness of an architecture increases so too does its similarity to every other architecture, at any level of robustness.** If you’re interested in learning more, we invite you to give the paper a [read](https://openreview.net/pdf?id=BGfLS_8j5eq).
 
-# Getting Started With Some Code
+## Getting Started With Some Code
 If you’d like to give this method a shot with your own models and datasets, we provide some code to get you started using [PyTorch](https://pytorch.org/) and the [Robustness](https://robustness.readthedocs.io/) library. This code expects your model to be an AttackerModel provided by the Robustness library‚ for custom architectures check the documentation [here](https://robustness.readthedocs.io/en/latest/example_usage/training_lib_part_2.html#training-with-custom-architectures) to see how to convert your model to one, it’s not too hard.
 
 All you need to do is provide the function `invert_images` with a model (AttackerModel), a batched set of seed images, and a batched set of target images (one for each seed image)--all other hyperparameters default to the values used in our paper.

@@ -4,23 +4,9 @@ date: 2022-05-22T14:29:11-06:00
 draft: false
 tags: ["ML"]
 categories: ["The Future Gadgets Lab"]
-author:
-    [
-        "Haydn Jones",
-        "Alec Benson",
-        "Benjamin Mastripolito",
-        "The Future Gadgets Lab",
-    ]
 comments: false
-description: ""
-disableShare: false
-hideSummary: false
-searchHidden: false
-cover:
-    image: "images/WaifuXL.webp" # image path/url
-    alt: "WaifuXL Screenshot" # alt text
-    caption: "" # display caption under cover
-    relative: true # when using page bundles set this to true
+summary: "A breakdown of the development of WaifuXL."
+ShowWordCount: true
 ---
 # We're Launching at [waifuxl.com](https://waifuxl.com/)!
 Today we're finally launching our neural network powered super resolution website for anime-style drawings, [WaifuXL](https://waifuxl.com/)! This is a project that [The Future Gadgets Lab](https://github.com/TheFutureGadgetsLab/WaifuXL) has been working on for a while and we're really excited to share it with you.

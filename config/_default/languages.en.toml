@@ -1,0 +1,25 @@
+languageCode = "en"
+languageName = "English"
+displayName = "EN"
+isoCode = "en"
+weight = 1
+rtl = false
+
+title = "Posterior Collapse"
+logo = "logo.png"
+description = "My blog"
+# copyright = "Copy, _right?_ :thinking_face:"
+
+dateFormat = "2 January 2006"
+
+[author]
+  name = "Haydn Jones"
+  #image = "img/author.jpg"
+  #headline = "I'm only human"
+  bio = "Post-baccalaureate machine learning researcher at Los Alamos National Laboratory."
+  links = [
+    { email = "mailto:haydnjonest@gmail.com" },
+    { github = "https://github.com/haydn-jones" },
+    { linkedin = "https://www.linkedin.com/in/haydntjones/" },
+    { twitter = "https://twitter.com/BadBoyHayHay" },
+  ]
