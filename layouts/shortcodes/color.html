@@ -2,6 +2,4 @@
 
 {{ $color := .Get 0 | safeCSS }}
 {{ $text  := .Get 1 | safeCSS }}
-<code style="background-color: {{ $color }};"> 
-<span style="color: {{ $color }}; filter: grayscale(1) invert(1) contrast(100);">
-{{ $text }}</span></code>
+<code style="background-color: {{ $color }};"><span style="color: {{ $color }}; filter: grayscale(1) invert(1) contrast(100);">{{ $text }}</span></code>
