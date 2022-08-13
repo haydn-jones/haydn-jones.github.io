@@ -224,11 +224,11 @@ def invert_images(
     return inverted
 {{< / highlight >}}
 
-# Conclusions
+## Conclusions
 While I mainly focused on our proposed metric in this article, I briefly wanted to discuss some of the interesting takeaways we included in the paper. The fact that robustness systematically increases a model’s similarity to any arbitrary other model, regardless of architecture or initialization, is a significant one. Within the representation learning community, some researchers have posed a **universality hypothesis**. This hypothesis conjectures that the features networks learn from their data are **universal**‚ in that they are shared across distinct initializations or architectures. Our results imply a *modified* universality hypothesis, suggesting that under sufficient constraints (i.e., a robustness constraint), diverse architectures will converge on a similar set of learned features. This could mean that empirical analysis of a *single* robust neural network can reveal insight into *every* other neural network--possibly bringing us closer to understanding the nature of adversarial robustness itself. This is especially exciting in light of research looking at similarities between the representations learned by neural networks and brains.
 <!-- [perhaps cite Teti’s arch-nemesis, [Joel Dapello](https://bcs.mit.edu/directory/joel-dapello) here]. -->
 
-# References
+## References
 [1] Haydn T. Jones, Jacob M. Springer, Garrett T. Kenyon, and Juston S. Moore. ["If You've Trained One You've Trained Them All: Inter-Architecture Similarity Increases With Robustness."](https://openreview.net/forum?id=BGfLS_8j5eq) UAI (2022).
 
 [2] Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey E. Hinton. ["Similarity of Neural Network Representations Revisited."](https://arxiv.org/abs/1905.00414) ICML (2019).
